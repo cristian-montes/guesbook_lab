@@ -1,7 +1,9 @@
+import GuestBook from "../../components/GuestBook/GuestBook";
+
 const Home = () => {
     return(
         <>
-            <h2> Guess Component</h2>
+         <GuestBook />
             <h2> Entri list component </h2>
         </>
     )
