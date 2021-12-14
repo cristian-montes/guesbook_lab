@@ -1,11 +1,12 @@
 import GuestBook from "../../components/GuestBook/GuestBook";
+import { EntryProvider } from "../../context/EntryContext";
 
 const Home = () => {
     return(
-        <>
-         <GuestBook />
+        <EntryProvider>
+            <GuestBook />
             <h2> Entri list component </h2>
-        </>
+        </EntryProvider>
     )
 }
 

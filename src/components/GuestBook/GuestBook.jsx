@@ -13,19 +13,24 @@ export default function GuestBook(){
             <form>
                 <div>
                     <label> Guess Entry </label>
-                    <textarea />
+                    <textarea
+                    id="guestEntry"
+                    // value= {guestEntry}
+                    placeholder="Your Entry"
+                    />
                 </div>
+
                 <div>
                     <button>
                         Sign
                     </button>
-                    { "user goes here" && (
+                    { {user} && (
                         <button
                             type= "button"
-                            // onClick={ () => {
-                            //     setUser('')
-                            //     setName('')
-                            // }}
+                            onClick={ () => {
+                                setUser('')
+                                setName('')
+                            }}
                         >
                          Not {user} ?
                         </button>
