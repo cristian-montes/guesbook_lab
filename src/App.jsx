@@ -9,6 +9,6 @@ export default function App() {
       <Layout>
         <Home />
       </Layout>
-      </UserProvider>
+    </UserProvider>
   )
 }

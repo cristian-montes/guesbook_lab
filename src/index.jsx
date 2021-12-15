@@ -7,12 +7,4 @@ render(
 
 );
 
-
-// render(
-//     <UserProvider>
-//         <App /> 
-//     </UserProvider>
-//     , document.getElementById('root')
-    
-//     );
     
