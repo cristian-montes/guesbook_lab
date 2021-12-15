@@ -1,3 +1,5 @@
+import React from "react";
+
 import { useEntries } from "../../context/EntryContext";
 import Entry from "../Entry/Entry";
 

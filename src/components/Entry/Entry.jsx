@@ -1,3 +1,5 @@
+import React from "react";
+
 function Entry({entry:{name, message}}){
     return(
         <div>
