@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { useEntries } from "../../context/EntryContext";
 import { useUser } from "../../context/UserContext";
@@ -6,7 +7,7 @@ export default function GuestBook(){
     const [ name, setName] = useState('');
     const [guestEntry, setGuestEntry] = useState('');
     const { entries, setEntries} = useEntries();
-    const { user, setUser } = useUser();
+    const { user, setUser } = useUser('user');
 
     const updateGuestName = ()=>{
         if(!guestEntry) return

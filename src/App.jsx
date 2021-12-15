@@ -1,7 +1,11 @@
+import React from "react";
+import { UserProvider } from "./context/UserContext";
 import Home from "./views/Home/Home";
 
 export default function App() {
   return (
-    <Home />
+    <UserProvider>
+      <Home />
+    </UserProvider>
   )
 }
