@@ -1,35 +1,77 @@
 import { useState } from "react";
+import { useEntries } from "../../context/EntryContext";
 import { useUser } from "../../context/UserContext";
 
 export default function GuestBook(){
     const [ name, setName] = useState('');
-    const [guesEntry, setGuesEntry] = useState('');
-    // const { entries, setEntries } = useEntries();
+    const [guestEntry, setGuestEntry] = useState('');
+    const { entries, setEntries} = useEntries();
     const { user, setUser } = useUser();
 
+    const updateGuestName = ()=>{
+        if(!guestEntry) return
+
+        setUser(name);
+        setEntries([...entries, {name, message: guestEntry }])
+        setGuestEntry('');
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        updateGuestName()
+    }
+
+
+    const guestNameInput = (
+        <div>
+            <div>
+                <label htmlFor="guestName">
+                    Guest Name
+                </label>
+            </div>
+
+            <div>
+                <input 
+                  id="guestName"
+                  type="text"
+                  placeholder="Guest Name"
+                  value={name}
+                  onChange= {(e)=> setName(e.target.value)}
+                />
+            </div>
+        </div>
+    )
+
+        const messageDisplay = user ? `Thanks for signing ${user}!` : `Please Sign the Guestbook!`;
     return(
         <>
-            <h1> Display message will go here</h1>
-            <form>
+            <h1> {messageDisplay} </h1>
+            <form onSubmit={handleSubmit}>
+                {user ? null : guestNameInput} 
                 <div>
-                    <label> Guess Entry </label>
-                    <textarea
-                    id="guestEntry"
-                    // value= {guestEntry}
-                    placeholder="Your Entry"
-                    />
+
+                    <div>
+                        <label> Guess Entry </label>
+                    </div>
+
+                    <div>
+                        <textarea
+                        id="guestEntry"
+                        value= {guestEntry}
+                        placeholder="Your Entry"
+                        onChange={(event) => setGuestEntry(event.target.value)}
+                        />
+                    </div>
                 </div>
 
                 <div>
-                    <button>
-                        Sign
-                    </button>
+                    <button type="submit"> Sign </button>
                     { {user} && (
                         <button
                             type= "button"
                             onClick={ () => {
-                                setUser('')
-                                setName('')
+                              setUser('')
+                              setName('')
                             }}
                         >
                          Not {user} ?
