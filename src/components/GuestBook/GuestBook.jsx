@@ -43,6 +43,20 @@ export default function GuestBook(){
         </div>
     )
 
+    const boton = (
+        <div>
+            <button
+                type= "button"
+                onClick={ () => {
+                    setUser('')
+                    setName('')
+                }}
+            >
+                Not {user} ?
+            </button>
+        </div>
+    );
+
         const messageDisplay = user ? `Thanks for signing ${user}!` : `Please Sign the Guestbook!`;
     return(
         <>
@@ -67,17 +81,7 @@ export default function GuestBook(){
 
                 <div>
                     <button type="submit"> Sign </button>
-                    { {user} && (
-                        <button
-                            type= "button"
-                            onClick={ () => {
-                              setUser('')
-                              setName('')
-                            }}
-                        >
-                         Not {user} ?
-                        </button>
-                    )}
+                    {user ? boton : null}
                 </div>
             </form>
         </>
