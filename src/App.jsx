@@ -1,3 +1,14 @@
+import React from "react";
+import { UserProvider } from "./context/UserContext";
+import Home from "./views/Home/Home";
+import Layout from "./views/Layout/Layout";
+
 export default function App() {
-  return <h1>Hello World</h1>;
+  return (
+    <UserProvider>
+      <Layout>
+        <Home />
+      </Layout>
+    </UserProvider>
+  )
 }
