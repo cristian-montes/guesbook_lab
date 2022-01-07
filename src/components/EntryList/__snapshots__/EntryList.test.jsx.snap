@@ -2,10 +2,8 @@
 
 exports[`should display the list of entries 1`] = `
 <div>
-   
   <div>
     <ul />
   </div>
-   
 </div>
 `;

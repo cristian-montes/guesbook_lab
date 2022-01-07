@@ -1,24 +1,25 @@
-import React from "react";
-import { createContext, useContext } from "react";
-import { useState } from "react/cjs/react.development";
+import React, { useContext, createContext, useState } from 'react';
 
 const EntryContext = createContext();
 
 const EntryProvider = ({ children }) => {
-    const [entries, setEntries] = useState([]);
+  const [entries, setEntries] = useState([]);
 
-    return <EntryContext.Provider value={{entries, setEntries}}> { children } </EntryContext.Provider>
-
-}
+  return (
+    <EntryContext.Provider value={{ entries, setEntries }}>
+      {children}
+    </EntryContext.Provider>
+  );
+};
 
 const useEntries = () => {
-    const context = useContext(EntryContext);
+  const context = useContext(EntryContext);
 
-    if(context === undefined){
-        throw Error('useEntries must be used within an EntryContext Provider');
-    }
+  if (context === undefined) {
+    throw new Error('useEntries must be used within an EntryContext Provider');
+  }
 
-    return context
-}
+  return context;
+};
 
-export { EntryProvider, useEntries}
+export { EntryProvider, useEntries };

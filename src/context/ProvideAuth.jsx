@@ -1,15 +1,18 @@
-import { createContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const authContext = createContext();
 
 export function ProvideAuth({ children }) {
   const [user, setUser] = useState(null);
+  // const {AUTH_USERNAME} = process.env;
+  // const {AUTH_PASSWORD} = process.env;
 
-  const login = (email, password) => {
+
+  const login = (username, password) => {
     const loginSuccessful =
-      email === process.env.AUTH_EMAIL &&
+      username === process.env.AUTH_USERNAME &&
       password === process.env.AUTH_PASSWORD;
-    if (loginSuccessful) setUser({ email });
+    if (loginSuccessful) setUser({ username });
     return loginSuccessful;
   };
 
@@ -24,3 +27,4 @@ export function ProvideAuth({ children }) {
     </authContext.Provider>
   );
 }
+

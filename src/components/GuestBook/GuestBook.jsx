@@ -1,91 +1,57 @@
-import React from "react";
-import { useState } from "react";
-import { useEntries } from "../../context/EntryContext";
-import { useUser } from "../../context/UserContext";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useEntries } from '../../context/EntryContext';
+import {useUser } from '../../context/UserContext';
 
-export default function GuestBook(){
-    const [ name, setName] = useState('');
-    const [guestEntry, setGuestEntry] = useState('');
-    const { entries, setEntries} = useEntries();
-    const { user, setUser } = useUser('user');
+function GuestBook(){
+    const [name, setName] = useState('');
+    const [entry, setEntry] = useState('');
+    const { entries, setEntries } = useEntries();
+    const { user, setUser } = useUser();
+    const history = useHistory();
 
-    const updateGuestName = ()=>{
-        if(!guestEntry) return
+    function updateNameAndEntries() {
+        if (!entry) return;
+        setEntries([...entries, { name: user, message: entry }]);
+        setEntry('');
+      }
 
-        setUser(name);
-        setEntries([...entries, {name, message: guestEntry }])
-        setGuestEntry('');
-    }
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        updateNameAndEntries();
+      };
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        updateGuestName()
-    }
+      const displayMessage = user
+      ? `Thanks for Signing, ${user}`
+      : 'Please Sign the Guestbook';
 
 
-    const guestNameInput = (
-        <div>
-            <div>
-                <label htmlFor="guestName">
-                    Guest Name
-                </label>
-            </div>
-
-            <div>
-                <input 
-                  id="guestName"
-                  type="text"
-                  placeholder="Guest Name"
-                  value={name}
-                  onChange= {(e)=> setName(e.target.value)}
-                />
-            </div>
-        </div>
-    )
-
-    const boton = (
-        <div>
+      return (
+        <form onSubmit={handleSubmit}>
+          <h2>{displayMessage}</h2>
+          {/* {user ? null : guestNameEntry} */}
+          <label htmlFor="guestEntry">Guest Entry</label>
+          <textarea
+            id="guestEntry"
+            placeholder="Your Entry..."
+            value={entry}
+            onChange={({ target }) => setEntry(target.value)}
+          />
+    
+          <button type="submit">Sign</button>
+          {user && (
             <button
-                type= "button"
-                onClick={ () => {
-                    setUser('')
-                    setName('')
-                }}
+              type="button"
+              onClick={() => {
+                setUser('');
+                history.push('/login');
+              }}
             >
-                Not {user} ?
+              Not {user}?
             </button>
-        </div>
-    );
-
-        const messageDisplay = user ? `Thanks for signing ${user}!` : `Please Sign the Guestbook!`;
-    return(
-        <>
-            <h1> {messageDisplay} </h1>
-            <form onSubmit={handleSubmit}>
-                {user ? null : guestNameInput} 
-                <div>
-
-                    <div>
-                        <label> Guess Entry </label>
-                    </div>
-
-                    <div>
-                        <textarea
-                        id="guestEntry"
-                        value= {guestEntry}
-                        placeholder="Your Entry"
-                        onChange={(event) => setGuestEntry(event.target.value)}
-                        />
-                    </div>
-                </div>
-
-                <div>
-                    <button type="submit"> Sign </button>
-                    {user ? boton : null}
-                </div>
-            </form>
-        </>
-    )
-
-
-}
+          )}
+        </form>
+      );
+    }
+    
+    export default GuestBook;
